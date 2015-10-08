@@ -1,18 +1,37 @@
 package io.pivotal.demo.springboot.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
+
+@Entity
 public class User {
 
-    @JsonProperty("first_name")
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name = "id")
+    private Long id;
+
+    @Column(name = "firstname")
     private String firstname;
 
-    @JsonProperty("last_name")
+    @Column(name = "lastname")
     private String lastname;
 
+    @Column(name = "email", unique=true)
+    private String email;
+
     @JsonIgnore
+    @Column(name = "password")
     private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -28,6 +47,14 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
